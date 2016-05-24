@@ -15,5 +15,10 @@ namespace DeadWax.Controllers
         {
             return View();
         }
+
+        public ActionResult Auction()
+        {
+            return View();
+        }
     }
 }
