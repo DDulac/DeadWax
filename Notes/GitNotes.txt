@@ -7,3 +7,12 @@ $ git commit    (3)
 Remove all files from staging
 git reset (Will remove all files from staging)
 git reset --hard (will remove all files from staging AND revert all changes in working directory)
+
+Adding a remote
+$git remote add origin https://github.com/DDulac/DeadWax.git
+# Set a new remote
+
+git remote -v
+# Verify new remote
+origin  https://github.com/user/repo.git (fetch)
+origin  https://github.com/user/repo.git (push)
