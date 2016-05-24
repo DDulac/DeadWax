@@ -8,6 +8,8 @@ namespace DeadWax.Controllers
 {
     public class AuctionsController : Controller
     {
+        //Add more actions
+
         // GET: Auctions
         public ActionResult Index()
         {
