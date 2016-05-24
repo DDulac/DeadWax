@@ -1,0 +1,9 @@
+Start a new Git repository for an existing code base
+$ cd /path/to/my/codebase
+$ git init      (1)
+$ git add .     (2)
+$ git commit    (3)
+
+Remove all files from staging
+git reset (Will remove all files from staging)
+git reset --hard (will remove all files from staging AND revert all changes in working directory)

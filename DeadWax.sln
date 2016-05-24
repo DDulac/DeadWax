@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 14 for Web
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadWax", "DeadWax\DeadWax.csproj", "{56E16D49-5503-49BA-A3FF-C5469F2BFEB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeadWax.Tests", "DeadWax.Tests\DeadWax.Tests.csproj", "{7D701978-83D4-4EFB-81CD-EB120DB07E66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56E16D49-5503-49BA-A3FF-C5469F2BFEB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56E16D49-5503-49BA-A3FF-C5469F2BFEB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56E16D49-5503-49BA-A3FF-C5469F2BFEB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56E16D49-5503-49BA-A3FF-C5469F2BFEB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D701978-83D4-4EFB-81CD-EB120DB07E66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D701978-83D4-4EFB-81CD-EB120DB07E66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D701978-83D4-4EFB-81CD-EB120DB07E66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D701978-83D4-4EFB-81CD-EB120DB07E66}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
