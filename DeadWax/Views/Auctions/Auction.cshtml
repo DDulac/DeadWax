@@ -1,15 +1,36 @@
 ﻿
+@model DeadWax.Models.Auction
+
 @{ 
-    //Instantiate and object and populate it
-    var auction = new DeadWax.Models.Auction()
-    {
-        Title = "Example Auction",
-        Description = "This is an example Auction",
-        StartTime = DateTime.Now,
-        EndTime = DateTime.Now.AddDays(7),
-        StartPrice = 1.00m,
-        CurrentPrice = null,
-    };
+    //Passing data Example 1
+    //It is wrong to instantiate objects directly in the view, instead instantiate objects in the controller and pass it to the view as ViewData Dictionary or ViewBag
+    //Instantiate and populating an auction object
+    //var auction = new DeadWax.Models.Auction()
+    //{
+    //    Title = "Example Auction",
+    //    Description = "This is an example Auction",
+    //    StartTime = DateTime.Now,
+    //    EndTime = DateTime.Now.AddDays(7),
+    //    StartPrice = 1.00m,
+    //    CurrentPrice = null,
+    //};
+
+    //Passing data Example 2 "ViewData"
+    //Instantiation is been moved to the views controller
+    //using ViewData Dictionary (exposes everything as an object as it is not strongly typed)
+    //Retrieve and cast the auction object from the Auction action of the AuctionsController
+    //var auction = (DeadWax.Models.Auction)ViewData["Auction"];
+
+    //Passing data Example 3 "ViewBag"
+    //Instantiation is still done in the views controller
+    //Using the ViewBag and exposing the data as dynamic objects, this eliminates the need to cast to a type like with ViewData Dictionary
+    //var auction = ViewBag.Auction;
+
+    //Passing data Example 4 "Model"
+    //Using the view helper method
+    //Instantiation is still done in the views controller
+    //Add a fully qualified reference to the model object as a page directive (see @model DeadWax.Models.Auction at top of page)
+    var auction = Model;
 }
 
 <div class="auction">
