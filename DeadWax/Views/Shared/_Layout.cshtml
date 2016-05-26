@@ -54,6 +54,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 
+    <!--Render scripts if other content includes them as a file-->
     @*@RenderSection("scripts", required: false)*@
     @if (IsSectionDefined("scripts"))
     {

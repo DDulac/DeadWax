@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeadWax.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -82,8 +83,9 @@ namespace DeadWax.Controllers
             //The view will have to reference the Auction model object as a page directive as a fully qualified name
         }
    
-        //Exclude items from the user posting to the model in the form by decorcating the type with bind 
-        public ActionResult Create([Bind(Exclude = "CurrentPrice")]Models.Auction auction)
+        //The Create auction view action, decorate with HttpGet to differentiate between get and post
+        [HttpGet]
+        public ActionResult Create()
         {
             //Todo: Get a list of categories from the database
             var categoryList = new SelectList(new[] { "Automotive", "Electronics", "Games", "Home" });
@@ -91,6 +93,42 @@ namespace DeadWax.Controllers
             ViewBag.Categorylist = categoryList;
 
             return View();
+        }
+
+        //The save created auction action, decorate with HttpPost to differentiate between post and get
+        //Exclude items from the user posting to the model in the form by decorcating the type with bind 
+        [HttpPost]
+        public ActionResult Create([Bind(Exclude = "CurrentPrice")]Models.Auction auction)
+        {
+            //Commented out, model was decorated with data annotations to handle error handling
+            ////Validate Title
+            //if (string.IsNullOrWhiteSpace(auction.Title))
+            //{
+            //    //Invalid entry
+            //    //Add error to model state dictionary
+            //    ModelState.AddModelError("Title", "Title is required!");
+            //}
+            //else if (auction.Title.Length < 5 || auction.Title.Length > 200)
+            //{
+            //    //Also an invalid entry
+            //    //Add error to model state dictionary
+            //    ModelState.AddModelError("Title", "Title must be between 5 and 200 characters long!");
+            //}
+
+            //If the model is valid save
+            if (ModelState.IsValid)
+            {
+                //Save data to database using the auctions data context
+                //Add using DeadWax.Models; to the class
+                var db = new AuctionsDataContext();
+                db.Auctions.Add(auction);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            //If model is not valid fall through and return the create action
+            return Create();            
         }
     }
 }
