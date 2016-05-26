@@ -81,5 +81,10 @@ namespace DeadWax.Controllers
             return View(auction);
             //The view will have to reference the Auction model object as a page directive as a fully qualified name
         }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
     }
 }
