@@ -10,5 +10,12 @@ namespace DeadWax.Models
     public class AuctionsDataContext : DbContext
     {
         public DbSet<Auction> Auctions { get; set; }
+
+        //Todo: Entity Framework code first migrations as the below database initialize if for development only
+        static AuctionsDataContext()
+        {
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<AuctionsDataContext>());
+        }
+
     }
 }
