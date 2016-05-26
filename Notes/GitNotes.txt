@@ -19,3 +19,6 @@ origin  https://github.com/DDulac/DeadWax.git (push)
 
 git remote push
 $git push -u origin master
+
+diffs
+$git diff master origin/master
