@@ -59,7 +59,7 @@ namespace DeadWax.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Auction()
+        public ActionResult Auction(long id)
         {
             //Passing data Example 2 "ViewData", 3 "ViewBag", and 4 "Model". Instantiating and populating an Auction object
             var auction = new DeadWax.Models.Auction()
@@ -81,8 +81,9 @@ namespace DeadWax.Controllers
             return View(auction);
             //The view will have to reference the Auction model object as a page directive as a fully qualified name
         }
-
-        public ActionResult Create()
+   
+        //Exclude items from the user posting to the model in the form by decorcating the type with bind 
+        public ActionResult Create([Bind(Exclude = "CurrentPrice")]Models.Auction auction)
         {
             //Todo: Get a list of categories from the database
             var categoryList = new SelectList(new[] { "Automotive", "Electronics", "Games", "Home" });
