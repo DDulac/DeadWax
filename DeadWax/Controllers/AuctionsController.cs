@@ -84,6 +84,11 @@ namespace DeadWax.Controllers
 
         public ActionResult Create()
         {
+            //Todo: Get a list of categories from the database
+            var categoryList = new SelectList(new[] { "Automotive", "Electronics", "Games", "Home" });
+
+            ViewBag.Categorylist = categoryList;
+
             return View();
         }
     }
