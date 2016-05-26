@@ -1,10 +1,27 @@
 ﻿@model IEnumerable<DeadWax.Models.Auction>
 
 @{
-    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutWithSidebar.cshtml";
+    ViewBag.Title = "Auctions";
 }
 
-<h2>Index</h2>
+@section Sidebar {
+    <h3>This is my sidebar!</h3>
+    }
+
+@section Featured {
+    <section class="featured">
+        <div class="content">
+            This is some featured content!
+        </div>
+    </section>    
+    }
+
+@section Scripts {
+    <!--This content will be rendered in the scripts section-->    
+    }
+
+<h2>@ViewBag.Title</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")

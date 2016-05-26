@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "_LayoutWithSidebar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--If a section is not defined in the main layout it will error. There is a section in a view that the layout knows nothing about
+    even though the main layout does define these sections. Because this new sidebar layout didn't define these sections.
+    Section definitions do not carry forward to other layout files. To fix this we need to add these sections to this 
+    new sidebar layout below to explicitly pass the content for these sections through to the old layout setting the
+    required parameter to false in both sections to not require that they contain content just as the parent layout does
+    not require them-->
+@section Featured{
+    @RenderSection("Featured", required: false)
+    }
+
+@section Scripts{
+    @RenderSection("Scripts", required: false)
+    }
+
+<div class="sidebar">
+    @RenderSection("sidebar")
+</div>
+
+<div class="content">
+    @RenderBody()
+</div>
+

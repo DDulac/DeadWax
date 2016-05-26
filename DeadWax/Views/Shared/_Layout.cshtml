@@ -38,6 +38,7 @@
 
     <!--Body and Footer of the application-->
     <div class="container body-content">
+        @RenderSection("featured", required: false)
         <!--All Body content from view calls is rendered to this page location-->
         @RenderBody()
         <hr />
@@ -52,6 +53,11 @@
     <!--Load scripts after the page body content for better performance-->
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+    @*@RenderSection("scripts", required: false)*@
+    @if (IsSectionDefined("scripts"))
+    {
+        @RenderSection("scripts")
+    }
 </body>
 </html>
