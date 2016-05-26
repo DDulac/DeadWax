@@ -33,6 +33,11 @@
     var auction = Model;
 }
 
+<!-- HTML Helper Example 1: injects the path (/Account/Login) to the login page as the href value-->
+<!--<a href="@Url.Action("login", "Account")">Login</a>-->
+<!-- HTML Helper Example 2: injects the whole html markup and the path-->
+@Html.ActionLink("Login", "Login", "Account")
+
 <div class="auction">
     <h3>@auction.Title</h3>
     <div class="details">
