@@ -10,7 +10,7 @@ namespace DeadWax.Controllers
 {
     public class AuctionsController : Controller
     {
-        // GET: Auctions
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var db = new AuctionsDataContext();
