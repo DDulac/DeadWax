@@ -1,41 +1,10 @@
 ﻿
 @model DeadWax.Models.Auction
 
-@{ 
-    //Passing data Example 1
-    //It is wrong to instantiate objects directly in the view, instead instantiate objects in the controller and pass it to the view as ViewData Dictionary or ViewBag
-    //Instantiate and populating an auction object
-    //var auction = new DeadWax.Models.Auction()
-    //{
-    //    Title = "Example Auction",
-    //    Description = "This is an example Auction",
-    //    StartTime = DateTime.Now,
-    //    EndTime = DateTime.Now.AddDays(7),
-    //    StartPrice = 1.00m,
-    //    CurrentPrice = null,
-    //};
-
-    //Passing data Example 2 "ViewData"
-    //Instantiation is been moved to the views controller
-    //using ViewData Dictionary (exposes everything as an object as it is not strongly typed)
-    //Retrieve and cast the auction object from the Auction action of the AuctionsController
-    //var auction = (DeadWax.Models.Auction)ViewData["Auction"];
-
-    //Passing data Example 3 "ViewBag"
-    //Instantiation is still done in the views controller
-    //Using the ViewBag and exposing the data as dynamic objects, this eliminates the need to cast to a type like with ViewData Dictionary
-    //var auction = ViewBag.Auction;
-
-    //Passing data Example 4 "Model"
-    //Using the view helper method
-    //Instantiation is still done in the views controller
-    //Add a fully qualified reference to the model object as a page directive (see @model DeadWax.Models.Auction at top of page)
+@{     
     var auction = Model;
 }
 
-<!-- HTML Helper Example 1: injects the path (/Account/Login) to the login page as the href value-->
-<!--<a href="@Url.Action("login", "Account")">Login</a>-->
-<!-- HTML Helper Example 2: injects the whole html markup and the path-->
 @Html.ActionLink("Login", "Login", "Account")
 
 <div class="auction">
@@ -50,7 +19,7 @@
             see if it has a value before we can call .ToString()!
         *@
 
-        <p>Current Price:
+        <p class="current-price">Current Price:
             @if(auction.CurrentPrice == null)
             {
                 @: [No bids]
@@ -58,6 +27,21 @@
             else
             {
                 <span>@auction.CurrentPrice.Value.ToString("C")</span>
+                <span>[@auction.BidCount bids]</span>
+            }
+        </p>
+        <p>
+            @using (Html.BeginForm("Bid", "Auctions"))
+            {
+                var lowestBidAmount = auction.CurrentPrice.GetValueOrDefault(auction.StartPrice) + 1;
+                <span>
+                    Bid: $@Html.TextBox("amount", lowestBidAmount)
+                    @Html.ValidationMessage("amount")
+                </span>
+
+                @Html.Hidden("auctionId", auction.Id)
+
+                <input class="post-bid" type="submit" value="Bid" />
             }
         </p>
     </div>
@@ -72,3 +56,43 @@
     </div>
 </div>
 
+<!--Client template to format JSON response from AJAX response-->
+<script id="current-price-template" type="application/html-template">
+    <p class="current-price">
+        <span>Current Price: {{CurrentPrice}}</span>
+        <span>[{{BidCount}} bids]</span>
+    </p>
+</script>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('.post-bid').on("click", function () {
+
+                var form = $(this).parent("form");
+
+                $.ajax({
+                    type: "POST",
+                    url: form.attr('action'),
+                    data: form.serialize()
+                })
+                    .success(function (data) {
+                        var template = $('#current-price-template').clone().html()
+
+                        var html =
+                            template
+                                .replace('{{CurrentPrice}}', data.CurrentPrice)
+                                .replace('{{BidCount}}', data.BidCount);
+
+                        $('.current-price').replaceWith(html);
+                    })
+                    .error(function () {
+                        alert("Your bid has been rejected")
+                    });
+
+                return false;
+            });
+        });
+    </script>
+    
+    }

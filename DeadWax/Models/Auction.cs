@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -10,14 +11,12 @@ namespace DeadWax.Models
     {
         #region Properties
         [Required]
-        public long AuctionId { get; set; }
+        public long Id { get; set; }
         
-        //Add data annotations to help html helpers and validators understand the model objects properties
         [Required]
         [DataType(DataType.Text)]
         public string Category { get; set; }
 
-        //You could put a message in the string length annotation but it is already in the controller
         [Required]
         [DataType(DataType.Text)]
         [StringLength(maximumLength:200, MinimumLength = 5 )]
@@ -45,13 +44,18 @@ namespace DeadWax.Models
         [DataType(DataType.Currency)]
         [Display(Name = "Current Bid Price")]
         public decimal? CurrentPrice { get; set; }
+
+        public virtual Collection<Bid> Bids { get; private set; }
+
+        public int BidCount
+        {   
+            get { return Bids.Count; }
+        }
         #endregion
 
-        //Constructor
         public Auction()
         {
-
+            Bids = new Collection<Bid>();
         }
-
     }
 }

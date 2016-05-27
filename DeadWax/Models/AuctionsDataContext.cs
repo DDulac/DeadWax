@@ -16,6 +16,5 @@ namespace DeadWax.Models
         {
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<AuctionsDataContext>());
         }
-
     }
 }

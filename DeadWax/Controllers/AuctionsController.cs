@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,16 +10,12 @@ namespace DeadWax.Controllers
 {
     public class AuctionsController : Controller
     {
-        //Add more actions
-
         // GET: Auctions
         public ActionResult Index()
         {
-            //Load an array of auctions from database to display on a list page
             var db = new AuctionsDataContext();
             var auctions = db.Auctions.ToArray();
 
-            //Pass the array out to the view, access with ViewData or ViewBag
             return View(auctions);
         }
 
@@ -29,8 +26,44 @@ namespace DeadWax.Controllers
 
             return View(auction);
         }
+
+        [HttpPost]
+        public ActionResult Bid(Bid bid)
+        {
+            var db = new AuctionsDataContext();
+            var auction = db.Auctions.Find(bid.AuctionId);
+
+            if (auction == null)
+            {
+                ModelState.AddModelError("AuctionId", "Auction not found!");
+            }
+            else if (auction.CurrentPrice >= bid.Amount)
+            {
+                ModelState.AddModelError("Ammount", "Bid amount must exceed current bid");
+            }
+            else
+            {
+                bid.Username = User.Identity.Name;
+                auction.Bids.Add(bid);
+                auction.CurrentPrice = bid.Amount;
+                db.SaveChanges();
+            }
+
+            if (!Request.IsAjaxRequest())
+            {
+                return RedirectToAction("Auction", new { id = bid.AuctionId });
+            }
+
+            //Returning a partial view when an AJAX response
+            //return PartialView("_CurrentPrice", auction);
+
+            //Returning JSON to the view when an AJAX response
+            return Json(new {
+                CurrentPrice = bid.Amount.ToString("C"),
+                BidCount = auction.BidCount
+            });
+        }
    
-        //The Create auction view action, decorate with HttpGet to differentiate between get and post
         [HttpGet]
         public ActionResult Create()
         {
@@ -42,15 +75,11 @@ namespace DeadWax.Controllers
             return View();
         }
 
-        //The save created auction action, decorate with HttpPost to differentiate between post and get
-        //Exclude items from the user posting to the model in the form by decorcating the type with bind 
         [HttpPost]
         public ActionResult Create([Bind(Exclude = "CurrentPrice")]Models.Auction auction)
         {
-            //If the model is valid save
             if (ModelState.IsValid)
             {
-                //Save data to database using the auctions data context.Add using DeadWax.Models; to the class
                 var db = new AuctionsDataContext();
                 db.Auctions.Add(auction);
                 db.SaveChanges();
@@ -58,7 +87,6 @@ namespace DeadWax.Controllers
                 return RedirectToAction("Index");
             }
 
-            //If model is not valid fall through and return the create action
             return Create();            
         }
     }

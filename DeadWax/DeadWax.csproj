@@ -179,6 +179,7 @@
     <Compile Include="Models\Auction.cs" />
     <Compile Include="Models\AuctionsDataContext.cs" />
     <Compile Include="Models\Band.cs" />
+    <Compile Include="Models\Bid.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Record.cs" />
@@ -245,6 +246,7 @@
     <Content Include="Views\Shared\_AuctionTile.cshtml" />
     <Content Include="Views\Shared\_LayoutWithSidebar.cshtml" />
     <Content Include="Views\Auctions\Create.cshtml" />
+    <Content Include="Views\Auctions\_CurrentPrice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
