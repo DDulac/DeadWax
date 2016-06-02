@@ -11,6 +11,7 @@ namespace DeadWax.Controllers
     public class AuctionsController : Controller
     {
         [AllowAnonymous]
+        [OutputCache(Duration = 1)]
         public ActionResult Index()
         {
             var db = new AuctionsDataContext();
@@ -19,6 +20,8 @@ namespace DeadWax.Controllers
             return View(auctions);
         }
 
+        //Micro caching (< 3 seconds) for performance optimization
+        [OutputCache(Duration = 10)]
         public ActionResult Auction(long id)
         {
             var db = new AuctionsDataContext();
