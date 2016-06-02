@@ -25,11 +25,26 @@
                 @Html.ActionLink("Dead Wax", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                @*Cache example, switch to getting catagories from the db and use them as site navigation to cache in order to cut down on db calls
+                    Comment out original navigation
+                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+                </ul>*@
+
+                @*Moved to a partial view after creating a new controller action
+                 <nav>
+                    <ul id="menu">
+                        @foreach (string category in ViewBag.Categories)
+                        {
+                            <li>@Html.ActionLink(category, "Index", "Auctions", new { category }, null )</li>
+                        }
+                    </ul>
+                </nav>*@
+
+                @Html.Action("CategoryNavigation", "Home")
+
                 <!--Login is loaded onto the page as a partial page-->
                 @Html.Partial("_LoginPartial")
             </div>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeadWax.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,6 +15,17 @@ namespace DeadWax.Controllers
         {
             ViewBag.Message = "This page was rendered at " + DateTime.Now;
             return View();
+        }
+
+        //Output cache example using a partial view for navigation by category which is called from the db
+        [OutputCache(Duration = 3600)]
+        public ActionResult CategoryNavigation()
+        {
+            var db = new AuctionsDataContext();
+            var cateogries = db.Auctions.Select(x => x.Category).Distinct();
+            ViewBag.Categories = cateogries.ToArray();
+
+            return PartialView();
         }
 
         public ActionResult About()
