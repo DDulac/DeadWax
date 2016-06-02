@@ -21,7 +21,7 @@ namespace DeadWax.Controllers
         }
 
         //Micro caching (< 3 seconds) for performance optimization
-        [OutputCache(Duration = 10)]
+        [OutputCache(Duration = 3)]
         public ActionResult Auction(long id)
         {
             var db = new AuctionsDataContext();
